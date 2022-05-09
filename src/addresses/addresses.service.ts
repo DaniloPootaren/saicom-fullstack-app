@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { paginate, Paginated, PaginateQuery } from 'nestjs-paginate';
 import { Repository } from 'typeorm';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
@@ -18,8 +19,11 @@ export class AddressesService {
     return this.addressRepository.save(address).then(() => address);
   }
 
-  findAll() {
-    return this.addressRepository.find().then((addresses) => addresses);
+  findAll(query: PaginateQuery): Promise<Paginated<Address>> {
+    return paginate(query, this.addressRepository, {
+      sortableColumns: ['country','city'],
+      defaultSortBy: [['addressId', 'DESC']],
+    })
   }
 
   findOne(id: string) {
@@ -47,5 +51,6 @@ export class AddressesService {
       return { ...{ addressId: id }, ...updateAddressDto };
     });
   }
+  
 
 }
