@@ -22,7 +22,7 @@ export class AppService {
     australia['provinces'] = AUprovince;
 
     return {
-      countries: { afghanistan, southAfrica, australia },
+      countries: [afghanistan, southAfrica, australia],
     };
   }
 }
