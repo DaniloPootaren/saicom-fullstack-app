@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+
+  saicom-project:
+    container_name: saicom-be
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    ports:
+      - '4200:4200'
+    depends_on:
+      - "db"
+    networks:
+      - app-network
+
+
+  db:
+    container_name: saicom-db
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: saicom
+    ports:
+      - 3306:3306
+    networks:
+      - app-network       
+    volumes:
+      - saicom_db:/var/lib/mysql/data
+
+volumes:
+  saicom_db:
+    external: false
+
+networks:
+  app-network:
+    driver: bridge
+
