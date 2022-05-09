@@ -21,8 +21,8 @@ export class AddressesService {
 
   findAll(query: PaginateQuery): Promise<Paginated<Address>> {
     return paginate(query, this.addressRepository, {
-      sortableColumns: ['country','city'],
-      defaultSortBy: [['addressId', 'DESC']],
+      sortableColumns: ['country'],
+      defaultSortBy: [['country', 'ASC']],
     })
   }
 

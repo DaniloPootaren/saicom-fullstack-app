@@ -1,9 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('country')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-
+  @Get()
+  getCountryData(): string {
+    return this.appService.getCountryList();
+  }
 }
