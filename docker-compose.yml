@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: 'Dockerfile'
     ports:
-      - '4200:4200'
+      - '8080:4200'
     depends_on:
       - "db"
     networks:
